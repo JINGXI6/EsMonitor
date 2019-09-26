@@ -57,7 +57,6 @@ public class SendMonitorWeChat implements CommandLineRunner {
     private static int activeRedDelayedInterval;
     private static int activeYellowDelayedInterval;
 
-    private static Calendar calendar = Calendar.getInstance();
 
     @Value("${es.cluster.name}")
     public void setEsClusterName(String esClusterName2) {
@@ -145,6 +144,9 @@ public class SendMonitorWeChat implements CommandLineRunner {
 
         //循环检测集群状态,按分钟
         while (true) {
+            Calendar calendar = Calendar.getInstance();
+            //获取当前时间
+            int hour = calendar.get(Calendar.HOUR);
 
             Long currentTime = System.currentTimeMillis();
             JSONObject clusterStatus = new JSONObject();
@@ -160,8 +162,6 @@ public class SendMonitorWeChat implements CommandLineRunner {
             assert nginxStatus != null;
             assert clusterStatus != null;
 
-            //获取当前时间
-            int hour = calendar.get(Calendar.HOUR);
 
             //判断是否开启当前集群的延时告警
             if (activeMonitor && enableActiveDelayedAlarm) {
@@ -206,7 +206,7 @@ public class SendMonitorWeChat implements CommandLineRunner {
             }
 
             //读集群
-            if(standMonitor && (hour<=5 || hour >=9)){
+            if(standMonitor && (hour< 5 || hour >= 9)){
                 if (enableStandbyDelayedAlarm) {
                     if (clusterStandByStatus.getJSONObject("info").getString("status").equals("red")) {
                         enableStandbyAlerm = false;
@@ -252,6 +252,8 @@ public class SendMonitorWeChat implements CommandLineRunner {
                 standbyRedMonitor = true;
                 standbyYellowMonitor = true;
             }
+
+            calendar.clear();
 
             //监控线上读写集群
             if (activeMonitor && clusterStatus.getIntValue("status") == 5001 && (!activeRedMonitor || !activeYellowMonitor || enableActiveAlerm)) {
