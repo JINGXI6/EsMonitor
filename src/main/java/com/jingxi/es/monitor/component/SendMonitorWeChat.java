@@ -198,6 +198,7 @@ public class SendMonitorWeChat implements CommandLineRunner {
                 } else {
                     activeClusterState = "green";
                     if (!activeRedMonitor || !activeYellowMonitor) {
+                        ShardsService.getShardsStatus("active");
                         enableActiveAlerm = true;
                         activeRedMonitor = true;
                         activeYellowMonitor = true;
@@ -241,6 +242,7 @@ public class SendMonitorWeChat implements CommandLineRunner {
                     } else {
                         standbyClusterState = "green";
                         if (!standbyRedMonitor || !standbyYellowMonitor) {
+                            ShardsService.getShardsStatus("standby");
                             enableStandbyAlerm = true;
                             standbyRedMonitor = true;
                             standbyYellowMonitor = true;
