@@ -272,7 +272,7 @@ public class SendMonitorWeChat implements CommandLineRunner {
                 if (!clusterName.toLowerCase().split("_")[2].equals("b")) clusterType = "Write";
                 if (!clusterState.equals("green")) {
                     data.put("content", "**[ "+esClusterName+" ES " + clusterType + " Cluster Status Exception ]** \n" +
-                            ">集群状态: <font color=" + monitorColor + ">" + clusterState + "</font> \n" +
+                            ">集群状态: <font color=\"" + monitorColor + "\">" + clusterState + "</font> \n" +
                             ">未分配分片数量: " + unassignedShards + " \n" +
                             ">初始化分片数量: " + initializingShards + " \n" +
                             ">活跃分片比例: " + activeShardsPercentAsNumber + "% \n" +
@@ -283,7 +283,7 @@ public class SendMonitorWeChat implements CommandLineRunner {
 
                 } else {
                     data.put("content", "**[ "+esClusterName+" ES " + clusterType + " Cluster Recovery Health ]** \n" +
-                            ">集群状态: <font color=" + monitorColor + ">" + clusterState + "</font> \n" +
+                            ">集群状态: <font color=\"" + monitorColor + "\">" + clusterState + "</font> \n" +
                             ">活跃分片比例: " + activeShardsPercentAsNumber + "%");
                     reqData.put("msgtype", "markdown");
                     reqData.put("markdown", data);
@@ -310,7 +310,7 @@ public class SendMonitorWeChat implements CommandLineRunner {
                 if (clusterName.toLowerCase().split("_")[2].equals("b")) clusterType = "Read";
                 if (!clusterState.equals("green")) {
                     data.put("content", "**[ "+esClusterName+" ES " + clusterType + " Cluster Status Exception ]** \n" +
-                            ">集群状态: <font color=" + monitorColor + ">" + clusterState + "</font> \n" +
+                            ">集群状态: <font color=\"" + monitorColor + "\">" + clusterState + "</font> \n" +
                             ">未分配分片数量: " + unassignedShards + " \n" +
                             ">初始化分片数量: " + initializingShards + " \n" +
                             ">活跃分片比例: " + activeShardsPercentAsNumber + "% \n" +
@@ -320,7 +320,7 @@ public class SendMonitorWeChat implements CommandLineRunner {
 
                 } else {
                     data.put("content", "**[ "+esClusterName+" ES " + clusterType + " Cluster Recovery Health ]** \n" +
-                            ">集群状态: <font color=" + monitorColor + ">" + clusterState + "</font> \n" +
+                            ">集群状态: <font color=\"" + monitorColor + "\">" + clusterState + "</font> \n" +
                             ">活跃分片比例: " + activeShardsPercentAsNumber + "%");
                     reqData.put("msgtype", "markdown");
                     reqData.put("markdown", data);
